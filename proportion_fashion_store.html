@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROPORTION — Minimalist Fashion & Luxury Apparel</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            white: '#FFFFFF',
+                            beige: '#FAF7F2',
+                            cream: '#F4EFEA',
+                            pastel: '#EFEAE0',
+                            border: '#E6E0D6',
+                            text: '#1C1917',
+                            muted: '#78716C',
+                            dark: '#111111',
+                            accent: '#262422'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS Styles -->
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF7F2;
+            color: #1C1917;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Custom subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D6CEC4;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A89F91;
+        }
+
+        /* Image zoom container */
+        .zoom-container {
+            overflow: hidden;
+            position: relative;
+            cursor: zoom-in;
+        }
+        .zoom-container img {
+            transition: transform 0.4s ease-out, transform-origin 0.2s ease;
+        }
+        .zoom-container:hover img {
+            transform: scale(2.0);
+        }
+
+        /* Modal backdrop transition */
+        .modal-blur {
+            backdrop-filter: blur(8px);
+            background-color: rgba(28, 25, 23, 0.4);
+        }
+
+        /* Soft fade animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-brand-pastel selection:text-brand-dark">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-brand-border/60 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Left Nav Links (Desktop) -->
+                <nav class="hidden md:flex items-center space-x-8 text-xs font-semibold tracking-widest uppercase text-brand-text/80">
+                    <a href="#katalog" class="hover:text-brand-dark transition-colors">Katalog</a>
+                    <a href="#about" class="hover:text-brand-dark transition-colors">Tentang Kami</a>
+                    <a href="#contact" class="hover:text-brand-dark transition-colors">Kontak</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-brand-dark p-2 focus:outline-none" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars-staggered text-lg"></i>
+                </button>
+
+                <!-- Brand Logo (PROPORTION) -->
+                <div class="flex-1 md:flex-none text-center">
+                    <a href="#" class="inline-block group" id="brandLogoContainer">
+                        <!-- Default Logo or Custom Image Logo -->
+                        <div id="logoDisplay" class="flex items-center justify-center">
+                            <!-- JS populated logo image or typographic fallback -->
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Right Nav Actions (Cart & Search) -->
+                <div class="flex items-center space-x-5">
+                    <button onclick="toggleCartDrawer()" class="relative text-brand-dark p-2 hover:opacity-75 transition-opacity" aria-label="Shopping Cart">
+                        <i class="fa-solid fa-bag-shopping text-xl"></i>
+                        <span id="cartBadge" class="absolute -top-1 -right-1 bg-brand-dark text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center hidden border-2 border-white">
+                            0
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-brand-border bg-brand-beige px-6 py-4 space-y-3">
+            <a href="#katalog" onclick="toggleMobileMenu()" class="block text-xs uppercase font-semibold tracking-widest text-brand-text py-2">Katalog Produk</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-xs uppercase font-semibold tracking-widest text-brand-text py-2">Tentang Kami</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-xs uppercase font-semibold tracking-widest text-brand-text py-2">Bantuan & WA</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA (Customer Store & Owner Dashboard) -->
+    <main class="flex-grow">
+        
+        <!-- CUSTOMER STORE VIEW -->
+        <section id="customerStoreView" class="block">
+            
+            <!-- Minimal Hero Banner -->
+            <div class="relative bg-brand-cream/40 border-b border-brand-border/40 py-16 sm:py-24 px-4 text-center">
+                <div class="max-w-3xl mx-auto space-y-4 animate-fade-in">
+                    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-muted">Modern Outfits Stylish Men & Girls</p>
+                    <h1 class="font-serif text-3xl sm:text-5xl font-medium tracking-tight text-brand-dark leading-tight">
+                        Designed for Perfect Proportion
+                    </h1>
+                    <p class="text-sm sm:text-base text-brand-muted max-w-xl mx-auto font-light leading-relaxed">
+                        Koleksi Outfit Pria & Wanita Dengan Cuttingan Berbeda Dan Kualitas bahan Premium Dan Kenyaman.
+                    </p>
+                    <div class="pt-4">
+                        <a href="#katalog" class="inline-block bg-brand-dark text-white text-xs uppercase font-semibold tracking-widest px-8 py-3.5 rounded-full shadow-sm hover:bg-stone-800 transition-all hover:shadow">
+                            Jelajahi Koleksi
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCT CATALOG GRID -->
+            <div id="katalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <!-- Section Header -->
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-brand-border">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-muted">PROPORTION COLLECTION</span>
+                        <h2 class="font-serif text-2xl sm:text-3xl text-brand-dark mt-1">Katalog Produk</h2>
+                    </div>
+                    <div class="mt-4 sm:mt-0 flex items-center space-x-3 text-xs text-brand-muted">
+                        <span id="catalogCount">Menampilkan 0 Produk</span>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+                    <!-- Dynamic Product Cards Injected Here -->
+                </div>
+            </div>
+
+            <!-- Brand Philosophy Banner -->
+            <div id="about" class="bg-white border-y border-brand-border/60 py-16 px-6">
+                <div class="max-w-4xl mx-auto text-center space-y-6">
+                    <div class="w-12 h-[1px] bg-brand-dark mx-auto"></div>
+                    <h3 class="font-serif text-2xl sm:text-3xl text-brand-dark">Proportion</h3>
+                    <p class="text-sm text-brand-muted leading-relaxed font-light max-w-2xl mx-auto">
+                        Kami percaya bahwa gaya busana sejati berakar dari keseimbangan dan proporsi yang pas. Setiap artikel dirancang dengan perhatian mendalam terhadap detail, material berkualitas, serta daya tahan pakai sepanjang masa.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- OWNER DASHBOARD VIEW (Protected Area) -->
+        <section id="ownerDashboardView" class="hidden min-h-screen bg-stone-100 py-10 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto space-y-8">
+                
+                <!-- Dashboard Top Bar -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-stone-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center space-x-3">
+                            <span class="bg-stone-900 text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-1 rounded">OWNER PANEL</span>
+                            <span class="text-xs text-stone-500" id="lastSavedTime">Status: Tersimpan</span>
+                        </div>
+                        <h1 class="text-2xl font-bold text-stone-900 mt-1">Manajemen Produk PROPORTION</h1>
+                        <p class="text-xs text-stone-500">Kelola katalog, foto, varian warna, ukuran independen, dan stok realtime.</p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3">
+                        <!-- Save All Products Button -->
+                        <button onclick="saveAllProductsGlobal()" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold px-5 py-2.5 rounded-xl shadow transition flex items-center space-x-2">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            <span>SAVE ALL PRODUCTS</span>
+                        </button>
+
+                        <!-- Add New Product Button -->
+                        <button onclick="openAddProductModal()" class="bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold px-5 py-2.5 rounded-xl shadow transition flex items-center space-x-2">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Tambah Produk Baru</span>
+                        </button>
+
+                        <!-- Logo Settings Button -->
+                        <button onclick="openLogoUploadModal()" class="bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center space-x-2">
+                            <i class="fa-solid fa-image"></i>
+                            <span>Kelola Logo</span>
+                        </button>
+
+                        <!-- Exit Owner View Button -->
+                        <button onclick="exitOwnerDashboard()" class="bg-stone-200 hover:bg-rose-100 hover:text-rose-700 text-stone-700 text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center space-x-2">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <span>Keluar Dashboard</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Management Table/Cards -->
+                <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden">
+                    <div class="p-6 border-b border-stone-200 flex justify-between items-center bg-stone-50/50">
+                        <h2 class="font-bold text-stone-800 text-base">Daftar Produk Store (<span id="ownerProductCount">0</span>)</h2>
+                        <span class="text-xs text-stone-500">Klik "Edit" untuk mengelola foto, warna, & ukuran independen.</span>
+                    </div>
+
+                    <div id="ownerProductList" class="divide-y divide-stone-200">
+                        <!-- Dynamic Owner Product Items -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer id="contact" class="bg-white border-t border-brand-border/80 pt-16 pb-8 text-brand-text">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-brand-border/50">
+                
+                <!-- Brand Info -->
+                <div class="space-y-4">
+                    <div class="w-48 text-brand-dark">
+                        <svg viewBox="0 0 500 170" class="w-full h-auto" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(210, 0)">
+                                <path d="M 0 14 L 14 2 L 14 56 L 8 56 L 8 16 L 0 22 Z" />
+                                <path d="M 18 6 L 28 6 L 28 56 L 18 56 Z" />
+                                <path d="M 12 53 L 34 53 L 34 57 L 12 57 Z" />
+                                <path d="M 28 6 C 54 6, 70 16, 70 30 C 70 43, 54 50, 38 50 L 38 42 C 48 42, 60 37, 60 30 C 60 21, 48 13, 28 13 Z" />
+                                <path d="M 38 42 C 41 48, 44 54, 41 57 C 38 60, 31 55, 28 50 L 33 46 C 35 49, 37 51, 38 49 C 39 47, 36 43, 34 39 Z" />
+                            </g>
+                            <text x="250" y="112" text-anchor="middle" font-family="'Playfair Display', serif" font-size="34" font-weight="600" letter-spacing="0.28em">PROPORTION</text>
+                            <line x1="70" y1="145" x2="130" y2="145" stroke="currentColor" stroke-width="1" />
+                            <text x="250" y="149" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="10.5" font-weight="500" letter-spacing="0.32em">MEN'S PROPORTION FIT</text>
+                            <line x1="370" y1="145" x2="430" y2="145" stroke="currentColor" stroke-width="1" />
+                        </svg>
+                    </div>
+                    <p class="text-xs text-brand-muted leading-relaxed font-light">
+                        Toko fashion modern dengan fokus pada estetika minimalis, kualitas bahan unggulan, dan potongan presisi.
+                    </p>
+                </div>
+
+                <!-- Quick Navigation -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-brand-dark">Layanan Customer</h4>
+                    <ul class="space-y-2 text-xs text-brand-muted font-light">
+                        <li><a href="#katalog" class="hover:text-brand-dark transition-colors">Katalog Koleksi</a></li>
+                        <li><a href="https://wa.me/6285173299971" target="_blank" class="hover:text-brand-dark transition-colors">WhatsApp Customer Service</a></li>
+                        <li><span class="cursor-pointer hover:text-brand-dark" onclick="openCartDrawer()">Lihat Keranjang</span></li>
+                    </ul>
+                </div>
+
+                <!-- WhatsApp Order Info -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-brand-dark">Pemesanan Direct</h4>
+                    <p class="text-xs text-brand-muted font-light">
+                        Senin - Sabtu: 09.00 - 21.00 WIB<br>
+                        WhatsApp Direct Admin:
+                    </p>
+                    <a href="https://wa.me/6285173299971" target="_blank" class="inline-flex items-center space-x-2 text-xs font-semibold text-stone-900 bg-brand-beige px-3.5 py-2 rounded-lg hover:bg-brand-pastel transition">
+                        <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i>
+                        <span>+62 851-7329-9971</span>
+                    </a>
+                </div>
+
+                <!-- Brand Guarantee -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-brand-dark">Jaminan Kualitas</h4>
+                    <p class="text-xs text-brand-muted font-light leading-relaxed">
+                        100% Produk Asli. Foto katalog menggunakan artikel fisik asli dari studio PROPORTION.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright & Hidden Subtle Owner Settings Link -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-400 gap-4">
+                <p>&copy; <span id="currentYear">2026</span> PROPORTION Official. All rights reserved.</p>
+                
+                <!-- SUBTLE OWNER SETTINGS BUTTON (REQUIRED) -->
+                <!-- Subtle, low-contrast, small font, hidden gear in bottom footer -->
+                <div class="flex items-center space-x-4">
+                    <button onclick="triggerSubtleOwnerModal()" class="text-[11px] text-stone-400 hover:text-stone-600 transition-colors flex items-center space-x-1.5 opacity-60 hover:opacity-100 focus:outline-none">
+                        <i class="fa-solid fa-gear text-[10px]"></i>
+                        <span>Settings</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 1. PRODUCT DETAIL MODAL (CUSTOMER) -->
+    <div id="productDetailModal" class="fixed inset-0 z-50 hidden modal-blur flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-brand-border/60 relative animate-fade-in">
+            
+            <!-- Close Modal Button -->
+            <button onclick="closeProductDetailModal()" class="absolute top-4 right-4 z-20 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-stone-700 hover:bg-stone-900 hover:text-white transition shadow-sm">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
+                
+                <!-- Gallery Section -->
+                <div class="p-4 sm:p-6 bg-brand-beige/50 flex flex-col justify-between">
+                    <!-- Main Display Image with Zoom -->
+                    <div class="zoom-container rounded-xl bg-white border border-brand-border/60 overflow-hidden shadow-sm aspect-square relative mb-4">
+                        <img id="modalMainImg" src="" alt="Product Detail Image" class="w-full h-full object-cover">
+                        <span class="absolute bottom-3 right-3 text-[10px] uppercase tracking-widest bg-white/80 backdrop-blur px-2.5 py-1 rounded-md text-stone-600 font-semibold shadow-xs pointer-events-none">
+                            <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Hover/Zoom
+                        </span>
+                    </div>
+
+                    <!-- Gallery Thumbnails -->
+                    <div id="modalGalleryThumbs" class="flex space-x-2 overflow-x-auto pb-2 no-scrollbar">
+                        <!-- Dynamic Thumbnails -->
+                    </div>
+                </div>
+
+                <!-- Info & Options Section -->
+                <div class="p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span id="modalStockStatusBadge" class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">
+                                    AVAILABLE
+                                </span>
+                                <h2 id="modalTitle" class="font-serif text-2xl sm:text-3xl font-medium text-stone-900 mt-2">Nama Produk</h2>
+                            </div>
+                        </div>
+
+                        <p id="modalPrice" class="text-xl font-bold text-stone-900">Rp 0</p>
+                        
+                        <div class="border-t border-b border-brand-border/60 py-3">
+                            <p id="modalDescription" class="text-xs sm:text-sm text-stone-600 font-light leading-relaxed">
+                                Deskripsi produk...
+                            </p>
+                        </div>
+
+                        <!-- Color Selector -->
+                        <div id="modalColorWrapper" class="space-y-2">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                                Warna: <span id="selectedColorLabel" class="font-normal text-stone-500">Pilih Warna</span>
+                            </label>
+                            <div id="modalColorList" class="flex flex-wrap gap-2">
+                                <!-- Dynamic Color Pills -->
+                            </div>
+                        </div>
+
+                        <!-- Size Selector -->
+                        <div id="modalSizeWrapper" class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                                    Ukuran: <span id="selectedSizeLabel" class="font-normal text-stone-500">Pilih Ukuran</span>
+                                </label>
+                                <span class="text-[11px] text-stone-400">Stok Varian: <strong id="modalVariantStockCount" class="text-stone-700">-</strong></span>
+                            </div>
+                            <div id="modalSizeList" class="flex flex-wrap gap-2">
+                                <!-- Dynamic Size Pills -->
+                            </div>
+                        </div>
+
+                        <!-- Quantity Selector -->
+                        <div class="space-y-2 pt-2">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">Jumlah</label>
+                            <div class="inline-flex items-center border border-stone-300 rounded-lg bg-white overflow-hidden">
+                                <button onclick="adjustModalQty(-1)" class="px-3 py-1.5 text-stone-600 hover:bg-stone-100 transition"><i class="fa-solid fa-minus text-xs"></i></button>
+                                <span id="modalQtyDisplay" class="px-4 text-xs font-bold text-stone-800">1</span>
+                                <button onclick="adjustModalQty(1)" class="px-3 py-1.5 text-stone-600 hover:bg-stone-100 transition"><i class="fa-solid fa-plus text-xs"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="space-y-3 pt-4 border-t border-brand-border/60">
+                        <button id="modalAddToCartBtn" onclick="submitModalAddToCart()" class="w-full bg-brand-cream border border-stone-300 hover:bg-stone-200 text-stone-900 text-xs uppercase font-bold tracking-widest py-3.5 rounded-xl transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                            <span>Tambah ke Keranjang</span>
+                        </button>
+
+                        <button id="modalBuyWaBtn" onclick="submitModalBuyWhatsApp()" class="w-full bg-stone-900 hover:bg-stone-800 text-white text-xs uppercase font-bold tracking-widest py-3.5 rounded-xl transition flex items-center justify-center space-x-2 shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+                            <span>Beli Melalui WhatsApp</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. SHOPPING CART DRAWER (CUSTOMER) -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 hidden modal-blur">
+        <div class="absolute inset-y-0 right-0 max-w-full flex">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between border-l border-brand-border/80">
+                
+                <!-- Drawer Header -->
+                <div class="p-6 border-b border-brand-border/80 flex items-center justify-between bg-brand-beige/40">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-bag-shopping text-stone-800 text-lg"></i>
+                        <h3 class="font-serif text-lg font-semibold text-stone-900">Keranjang Belanja</h3>
+                    </div>
+                    <button onclick="toggleCartDrawer()" class="text-stone-400 hover:text-stone-800 p-2">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Cart Items List -->
+                <div id="cartItemsList" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-stone-100">
+                    <!-- Dynamic Cart Items -->
+                </div>
+
+                <!-- Cart Summary & WhatsApp Checkout -->
+                <div class="p-6 border-t border-brand-border/80 bg-brand-beige/30 space-y-4">
+                    <div class="space-y-1.5">
+                        <div class="flex justify-between text-xs text-stone-500">
+                            <span>Subtotal Produk</span>
+                            <span id="cartSubtotal">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between text-sm font-bold text-stone-900 pt-2 border-t border-stone-200">
+                            <span>TOTAL:</span>
+                            <span id="cartTotalDisplay">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <button onclick="checkoutCartWhatsApp()" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white text-xs uppercase font-bold tracking-widest py-3.5 rounded-xl transition flex items-center justify-center space-x-2 shadow-md">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Checkout via WhatsApp</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. SUBTLE OWNER LOGIN MODAL -->
+    <div id="ownerLoginModal" class="fixed inset-0 z-50 hidden modal-blur flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl border border-stone-200 space-y-6 animate-fade-in relative">
+            <button onclick="closeOwnerLoginModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-800 p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center mx-auto text-stone-800">
+                    <i class="fa-solid fa-lock text-lg"></i>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-stone-900">OWNER ONLY</h3>
+                <p class="text-xs text-stone-500">Masukan kredensial untuk mengakses Owner Dashboard PROPORTION.</p>
+            </div>
+
+            <form onsubmit="handleOwnerLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-stone-600 mb-1">Username</label>
+                    <input type="text" id="loginUsername" required placeholder="Masukan Username" class="w-full px-4 py-3 rounded-xl border border-stone-300 text-xs focus:ring-2 focus:ring-stone-800 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-stone-600 mb-1">Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Masukan Password" class="w-full px-4 py-3 rounded-xl border border-stone-300 text-xs focus:ring-2 focus:ring-stone-800 focus:outline-none">
+                </div>
+
+                <div id="loginErrorMessage" class="hidden text-xs text-rose-600 font-medium text-center bg-rose-50 py-2 rounded-lg border border-rose-200">
+                    Username atau Password salah!
+                </div>
+
+                <button type="submit" class="w-full bg-stone-900 hover:bg-stone-800 text-white text-xs uppercase font-bold tracking-widest py-3.5 rounded-xl transition">
+                    Masuk Owner Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. OWNER PRODUCT EDIT / ADD MODAL -->
+    <div id="ownerProductModal" class="fixed inset-0 z-50 hidden modal-blur flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-stone-300 p-6 sm:p-8 space-y-6 relative animate-fade-in">
+            
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center pb-4 border-b border-stone-200">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-stone-400">PRODUCT EDITOR</span>
+                    <h3 id="ownerModalTitle" class="font-bold text-xl text-stone-900">Edit Produk</h3>
+                </div>
+                <button onclick="attemptCloseOwnerProductModal()" class="text-stone-400 hover:text-stone-800 p-2">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Editor Form -->
+            <form id="productForm" onsubmit="handleProductFormSubmit(event)" class="space-y-6">
+                <input type="hidden" id="editProductId">
+
+                <!-- Basic Info -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">Nama Produk *</label>
+                        <input type="text" id="formTitle" required placeholder="Contoh: Essential Linen Shirt" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-xs focus:ring-2 focus:ring-stone-800 focus:outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">Harga (Rp) *</label>
+                        <input type="number" id="formPrice" required placeholder="Contoh: 299000" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-xs focus:ring-2 focus:ring-stone-800 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">Deskripsi Produk</label>
+                    <textarea id="formDescription" rows="3" placeholder="Tuliskan detail bahan, ukuran fit, & instruksi perawatan..." class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-xs focus:ring-2 focus:ring-stone-800 focus:outline-none"></textarea>
+                </div>
+
+                <!-- Product Status -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">Status Produk</label>
+                    <select id="formStatus" class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-xs focus:ring-2 focus:ring-stone-800 focus:outline-none">
+                        <option value="ACTIVE">Aktif (Tampil di Store)</option>
+                        <option value="DRAFT">Draft / Tersembunyi</option>
+                    </select>
+                </div>
+
+                <!-- Photo Gallery Management -->
+                <div class="space-y-3 bg-stone-50 p-4 rounded-xl border border-stone-200">
+                    <div class="flex justify-between items-center">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">Foto Produk (Multi-Photo Gallery)</label>
+                        <span class="text-[11px] text-stone-500">Upload file foto atau gunakan URL</span>
+                    </div>
+
+                    <!-- Image Preview Grid -->
+                    <div id="formImagePreviews" class="grid grid-cols-3 sm:grid-cols-6 gap-3 min-h-[90px] p-2 bg-white rounded-xl border border-stone-200">
+                        <!-- Preview Cards -->
+                    </div>
+
+                    <!-- Add Image Controls -->
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="file" id="formImageFileInput" multiple accept="image/*" class="hidden" onchange="handleImageFileUpload(event)">
+                        <button type="button" onclick="document.getElementById('formImageFileInput').click()" class="bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-semibold px-4 py-2 rounded-lg transition flex items-center justify-center space-x-1.5">
+                            <i class="fa-solid fa-upload text-xs"></i>
+                            <span>Upload Foto Lokal</span>
+                        </button>
+                        <input type="url" id="formImageUrlInput" onkeydown="if(event.key==='Enter'){event.preventDefault(); handleAddImageUrl();}" placeholder="Atau paste URL Foto (https://...)" class="flex-1 px-3 py-2 rounded-lg border border-stone-300 text-xs focus:outline-none">
+                        <button type="button" onclick="handleAddImageUrl()" class="bg-stone-800 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-stone-900 transition">
+                            Tambah URL
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Color & Size Varian System -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-stone-50 p-4 rounded-xl border border-stone-200">
+                    
+                    <!-- Color Management -->
+                    <div class="space-y-3">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">Kelola Warna Produk</label>
+                        <div id="formColorList" class="flex flex-wrap gap-2 min-h-[40px] p-2 bg-white rounded-xl border border-stone-200">
+                            <!-- Dynamic Active Colors -->
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="text" id="newColorInput" onkeydown="if(event.key==='Enter'){event.preventDefault(); addNewColorToForm();}" placeholder="Warna Baru (misal: Cream)" class="flex-1 px-3 py-2 rounded-lg border border-stone-300 text-xs focus:outline-none">
+                            <button type="button" onclick="addNewColorToForm()" class="bg-stone-800 text-white text-xs font-semibold px-3 py-2 rounded-lg hover:bg-stone-900 transition">
+                                + Warna
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Size Management (Independent Sizes Requirement) -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">KELOLA UKURAN (MANAGE SIZE)</label>
+                        </div>
+                        <div id="formSizeList" class="flex flex-wrap gap-2 min-h-[40px] p-2 bg-white rounded-xl border border-stone-200">
+                            <!-- Dynamic Active Sizes with Delete Triggers -->
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="text" id="newSizeInput" onkeydown="if(event.key==='Enter'){event.preventDefault(); addNewSizeToForm();}" placeholder="Ukuran Baru (S, M, 3XL, Free Size, dll)" class="flex-1 px-3 py-2 rounded-lg border border-stone-300 text-xs focus:outline-none">
+                            <button type="button" onclick="addNewSizeToForm()" class="bg-stone-800 text-white text-xs font-semibold px-3 py-2 rounded-lg hover:bg-stone-900 transition">
+                                + Ukuran
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VARIANT STOCK MATRIX TABLE -->
+                <div class="space-y-3 bg-stone-50 p-4 rounded-xl border border-stone-200">
+                    <div class="flex justify-between items-center">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-stone-700">Atur Stok Varian (Warna & Ukuran)</label>
+                        <span class="text-xs font-bold text-stone-800">Total Stok Auto: <span id="formTotalStockCalc" class="text-emerald-700 font-extrabold">0</span></span>
+                    </div>
+                    <div class="overflow-x-auto bg-white rounded-xl border border-stone-200 p-2">
+                        <table class="w-full text-xs text-left border-collapse">
+                            <thead class="bg-stone-100 text-stone-700 uppercase font-bold text-[10px]">
+                                <tr id="variantMatrixHeaderRow">
+                                    <th class="p-2">Warna \ Ukuran</th>
+                                </tr>
+                            </thead>
+                            <tbody id="variantMatrixBody" class="divide-y divide-stone-100">
+                                <!-- Dynamic Stock Inputs Matrix -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SAVE / SIMPAN BUTTONS -->
+                <div class="flex justify-end space-x-3 pt-4 border-t border-stone-200">
+                    <button type="button" onclick="attemptCloseOwnerProductModal()" class="bg-stone-200 hover:bg-stone-300 text-stone-700 text-xs font-semibold px-5 py-3 rounded-xl transition">
+                        Batal
+                    </button>
+                    <button type="submit" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs uppercase font-bold tracking-widest px-8 py-3.5 rounded-xl shadow-md transition flex items-center space-x-2">
+                        <i class="fa-solid fa-check"></i>
+                        <span>SAVE / SIMPAN PRODUK</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- 5. SIZE DELETE CONFIRMATION MODAL -->
+    <div id="sizeDeleteConfirmModal" class="fixed inset-0 z-50 hidden modal-blur flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-stone-200 text-center space-y-4 animate-fade-in">
+            <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-stone-900 text-base">Hapus Ukuran</h4>
+                <p id="sizeDeleteConfirmText" class="text-xs text-stone-500 mt-1">Hapus ukuran XL dari produk ini?</p>
+            </div>
+            <div class="flex space-x-3 pt-2">
+                <button onclick="closeSizeDeleteConfirmModal()" class="flex-1 bg-stone-200 hover:bg-stone-300 text-stone-700 text-xs font-semibold py-2.5 rounded-xl transition">
+                    Batal
+                </button>
+                <button id="confirmDeleteSizeBtn" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold py-2.5 rounded-xl shadow transition">
+                    Hapus
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. UNSAVED CHANGES WARNING MODAL -->
+    <div id="unsavedChangesModal" class="fixed inset-0 z-50 hidden modal-blur flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-stone-200 text-center space-y-4 animate-fade-in">
+            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-stone-900 text-base">Perubahan Belum Disimpan</h4>
+                <p class="text-xs text-stone-500 mt-1">Perubahan belum disimpan. Apakah Anda yakin ingin keluar?</p>
+            </div>
+            <div class="flex space-x-3 pt-2">
+                <button onclick="closeUnsavedChangesModal()" class="flex-1 bg-stone-200 hover:bg-stone-300 text-stone-700 text-xs font-semibold py-2.5 rounded-xl transition">
+                    Kembali
+                </button>
+                <button onclick="forceCloseOwnerProductModal()" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold py-2.5 rounded-xl shadow transition">
+                    Keluar Tanpa Menyimpan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. LOGO UPLOAD MODAL -->
+    <div id="logoUploadModal" class="fixed inset-0 z-50 hidden modal-blur flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-stone-200 space-y-5 animate-fade-in">
+            <div class="flex justify-between items-center border-b border-stone-200 pb-3">
+                <h3 class="font-bold text-stone-900 text-base">Kelola Logo Store PROPORTION</h3>
+                <button onclick="closeLogoUploadModal()" class="text-stone-400 hover:text-stone-800"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-stone-500">Unggah file logo asli Anda untuk menggantikan teks logo default. Proporsi logo akan tetap terjaga secara presisi.</p>
+            
+            <div class="space-y-4">
+                <div id="currentLogoPreview" class="p-4 bg-brand-beige rounded-xl border border-stone-200 flex items-center justify-center min-h-[80px]">
+                    <!-- Preview -->
+                </div>
+
+                <div class="space-y-2">
+                    <input type="file" id="logoFileInput" accept="image/*" class="hidden" onchange="handleLogoFileUpload(event)">
+                    <button onclick="document.getElementById('logoFileInput').click()" class="w-full bg-stone-900 text-white text-xs font-semibold py-2.5 rounded-xl hover:bg-stone-800 transition">
+                        Upload File Gambar Logo
+                    </button>
+                    <button onclick="resetLogoToDefault()" class="w-full bg-stone-100 text-stone-600 text-xs font-semibold py-2.5 rounded-xl hover:bg-stone-200 transition">
+                        Gunakan Typography Default
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. PRODUCT DELETE CONFIRMATION MODAL -->
+    <div id="productDeleteConfirmModal" class="fixed inset-0 z-50 hidden modal-blur flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-stone-200 text-center space-y-4 animate-fade-in">
+            <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-stone-900 text-base">Hapus Produk</h4>
+                <p id="productDeleteConfirmText" class="text-xs text-stone-500 mt-1">Apakah Anda yakin ingin menghapus produk ini secara permanen?</p>
+            </div>
+            <div class="flex space-x-3 pt-2">
+                <button onclick="closeProductDeleteConfirmModal()" class="flex-1 bg-stone-200 hover:bg-stone-300 text-stone-700 text-xs font-semibold py-2.5 rounded-xl transition">
+                    Batal
+                </button>
+                <button id="confirmDeleteProductBtn" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold py-2.5 rounded-xl shadow transition">
+                    Hapus
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION POPUP -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden bg-stone-900 text-white text-xs font-semibold px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 transition-all transform translate-y-4 border border-stone-700">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toastMessage">Notifikasi berhasil</span>
+    </div>
+
+
+    <script>
+        /* ==========================================================================
+           PROPORTION FASHION STORE - SINGLE APPLICATION STATE & CORE SCRIPT
+           ========================================================================== */
+
+        const WHATSAPP_NUMBER = "6285173299971"; // Target Admin WhatsApp Number
+        const STORAGE_KEY_PRODUCTS = "PROPORTION_PRODUCTS_V2";
+        const STORAGE_KEY_LOGO = "PROPORTION_CUSTOM_LOGO_V1";
+        
+        let productsState = [];
+        let cartState = [];
+        let customLogoState = null;
+        let currentDetailProduct = null;
+        let selectedDetailColor = null;
+        let selectedDetailSize = null;
+        let selectedDetailQty = 1;
+        let isOwnerLoggedIn = false;
+
+        let formImages = [];
+        let formColors = [];
+        let formSizes = [];
+        let formVariants = {};
+        let isFormDirty = false;
+        let pendingSizeToDelete = null;
+        let pendingProductToDelete = null;
+
+        // Initial High-End Demo Products
+        const DEFAULT_PRODUCTS = [
+            {
+                id: "prop-01",
+                title: "Oversized Heavyweight Cotton Tee",
+                price: 249000,
+                description: "Kaos polos potong oversized berbahan 100% Heavyweight Cotton 240gsm. Tekstur tebal, tidak tebal gerah, dan jatuh secara sempurna pada bahu.",
+                status: "ACTIVE",
+                images: [
+                    "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1000&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1000&auto=format&fit=crop"
+                ],
+                colors: ["Cream", "Black", "Off-White"],
+                sizes: ["S", "M", "L", "XL", "XXL"],
+                variants: {
+                    "Cream": { "S": 5, "M": 10, "L": 8, "XL": 4, "XXL": 2 },
+                    "Black": { "S": 8, "M": 12, "L": 6, "XL": 3, "XXL": 0 },
+                    "Off-White": { "S": 4, "M": 6, "L": 5, "XL": 2, "XXL": 1 }
+                }
+            },
+            {
+                id: "prop-02",
+                title: "Minimalist Linen Overshirt",
+                price: 429000,
+                description: "Kemeja luaran berbahan Pure French Linen. Potongan relaxed fit kasual nan elegan, cocok dilapisi dengan kaos polos.",
+                status: "ACTIVE",
+                images: [
+                    "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=1000&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1000&auto=format&fit=crop"
+                ],
+                colors: ["Beige", "Black"],
+                sizes: ["M", "L", "XL"],
+                variants: {
+                    "Beige": { "M": 7, "L": 10, "XL": 4 },
+                    "Black": { "M": 5, "L": 8, "XL": 0 }
+                }
+            },
+            {
+                id: "prop-03",
+                title: "Pleated Tailored Trouser",
+                price: 389000,
+                description: "Celana bahan lipit ganda berpotongan straight wide. Menggunakan material Semi-Wool premium yang adem dan tidak gampang kusut.",
+                status: "ACTIVE",
+                images: [
+                    "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=1000&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1506629082925-2368c7f82710?q=80&w=1000&auto=format&fit=crop"
+                ],
+                colors: ["Black", "Cream"],
+                sizes: ["S", "M", "L", "XL"],
+                variants: {
+                    "Black": { "S": 3, "M": 5, "L": 4, "XL": 2 },
+                    "Cream": { "S": 2, "M": 4, "L": 3, "XL": 1 }
+                }
+            },
+            {
+                id: "prop-04",
+                title: "Structured Essential Hoodie",
+                price: 499000,
+                description: "Hoodie fleece katun premium 380gsm tanpa tali dengan lipatan hoodie dua lapis yang berdiri kokoh dan rapi.",
+                status: "ACTIVE",
+                images: [
+                    "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=1000&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?q=80&w=1000&auto=format&fit=crop"
+                ],
+                colors: ["Charcoal", "Cream"],
+                sizes: ["Free Size"],
+                variants: {
+                    "Charcoal": { "Free Size": 12 },
+                    "Cream": { "Free Size": 8 }
+                }
+            }
+        ];
+
+        function compressImage(file, maxWidth, maxHeight, quality, callback) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width = Math.round((width * maxHeight) / height);
+                            height = maxHeight;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+                    callback(compressedDataUrl);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function saveProductsToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(productsState));
+                const timeStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                const label = document.getElementById('lastSavedTime');
+                if (label) label.innerText = `Status: Tersimpan (${timeStr})`;
+                return true;
+            } catch (e) {
+                console.error("Failed to save to storage:", e);
+                showToast("Peringatan: Memori penuh! Gunakan URL gambar untuk menghemat ruang.");
+                const label = document.getElementById('lastSavedTime');
+                if (label) label.innerText = `Status: Memori Penuh`;
+                return false;
+            }
+        }
+
+        function loadProductsFromStorage() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY_PRODUCTS);
+                if (saved) {
+                    productsState = JSON.parse(saved);
+                } else {
+                    productsState = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+                }
+            } catch (e) {
+                console.error("Error loading products:", e);
+                productsState = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+            }
+        }
+
+        function loadLogoFromStorage() {
+            try {
+                customLogoState = localStorage.getItem(STORAGE_KEY_LOGO);
+            } catch (e) {
+                customLogoState = null;
+            }
+        }
+
+        /* ==========================================================================
+           LOGO RENDERING & MANAGEMENT
+           ========================================================================== */
+        function renderBrandLogo() {
+            const container = document.getElementById('logoDisplay');
+            if (!container) return;
+
+            if (customLogoState) {
+                container.innerHTML = `<img src="${customLogoState}" alt="PROPORTION Logo" class="h-8 sm:h-10 w-auto object-contain max-w-[220px]">`;
+            } else {
+                container.innerHTML = `
+                    <div class="py-1 text-brand-dark hover:opacity-90 transition-opacity">
+                        <svg viewBox="0 0 500 170" class="h-11 sm:h-14 w-auto mx-auto" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(210, 0)">
+                                <path d="M 0 14 L 14 2 L 14 56 L 8 56 L 8 16 L 0 22 Z" />
+                                <path d="M 18 6 L 28 6 L 28 56 L 18 56 Z" />
+                                <path d="M 12 53 L 34 53 L 34 57 L 12 57 Z" />
+                                <path d="M 28 6 C 54 6, 70 16, 70 30 C 70 43, 54 50, 38 50 L 38 42 C 48 42, 60 37, 60 30 C 60 21, 48 13, 28 13 Z" />
+                                <path d="M 38 42 C 41 48, 44 54, 41 57 C 38 60, 31 55, 28 50 L 33 46 C 35 49, 37 51, 38 49 C 39 47, 36 43, 34 39 Z" />
+                            </g>
+                            <text x="250" y="112" text-anchor="middle" font-family="'Playfair Display', serif" font-size="34" font-weight="600" letter-spacing="0.28em">PROPORTION</text>
+                            <line x1="70" y1="145" x2="130" y2="145" stroke="currentColor" stroke-width="1" />
+                            <text x="250" y="149" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-size="10.5" font-weight="500" letter-spacing="0.32em">MEN'S PROPORTION FIT</text>
+                            <line x1="370" y1="145" x2="430" y2="145" stroke="currentColor" stroke-width="1" />
+                        </svg>
+                    </div>
+                `;
+            }
+        }
+
+        function openLogoUploadModal() {
+            const preview = document.getElementById('currentLogoPreview');
+            if (customLogoState) {
+                preview.innerHTML = `<img src="${customLogoState}" class="h-10 w-auto object-contain">`;
+            } else {
+                preview.innerHTML = `<span class="text-xs font-serif tracking-widest font-bold text-stone-800">PROPORTION — MEN'S PROPORTION FIT (Default Logo)</span>`;
+            }
+            document.getElementById('logoUploadModal').classList.remove('hidden');
+        }
+
+        function closeLogoUploadModal() {
+            document.getElementById('logoUploadModal').classList.add('hidden');
+        }
+
+        function handleLogoFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                customLogoState = e.target.result;
+                localStorage.setItem(STORAGE_KEY_LOGO, customLogoState);
+                renderBrandLogo();
+                closeLogoUploadModal();
+                showToast("Logo berhasil diperbarui.");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function resetLogoToDefault() {
+            customLogoState = null;
+            localStorage.removeItem(STORAGE_KEY_LOGO);
+            renderBrandLogo();
+            closeLogoUploadModal();
+            showToast("Logo dikembalikan ke default.");
+        }
+
+        /* ==========================================================================
+           CUSTOMER STORE CATALOG RENDERER
+           ========================================================================== */
+        function calculateTotalProductStock(product) {
+            let total = 0;
+            if (!product.variants) return 0;
+            Object.keys(product.variants).forEach(color => {
+                Object.keys(product.variants[color]).forEach(size => {
+                    if (product.sizes.includes(size)) {
+                        total += Number(product.variants[color][size] || 0);
+                    }
+                });
+            });
+            return total;
+        }
+
+        function renderCatalog() {
+            const grid = document.getElementById('productGrid');
+            const countLabel = document.getElementById('catalogCount');
+            if (!grid) return;
+
+            const activeProducts = productsState.filter(p => p.status === 'ACTIVE');
+            countLabel.innerText = `Menampilkan ${activeProducts.length} Produk`;
+
+            if (activeProducts.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center text-stone-400 space-y-2">
+                        <i class="fa-solid fa-box-open text-3xl"></i>
+                        <p class="text-xs font-semibold">Belum ada produk yang ditampilkan saat ini.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = activeProducts.map(product => {
+                const totalStock = calculateTotalProductStock(product);
+                const isSoldOut = totalStock <= 0;
+                const primaryImage = (product.images && product.images.length > 0) 
+                    ? product.images[0] 
+                    : 'https://placehold.co/600x800/FAF7F2/1C1917?text=PROPORTION';
+
+                return `
+                    <div class="group bg-white rounded-2xl overflow-hidden border border-brand-border/60 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="relative aspect-[3/4] bg-brand-beige overflow-hidden cursor-pointer" onclick="openProductDetailModal('${product.id}')">
+                                <img src="${primaryImage}" alt="${product.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out">
+                                
+                                ${isSoldOut ? `
+                                    <div class="absolute inset-0 bg-white/70 backdrop-blur-xs flex items-center justify-center">
+                                        <span class="bg-stone-900 text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full shadow">
+                                            STOK HABIS
+                                        </span>
+                                    </div>
+                                ` : ''}
+
+                                <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span class="w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-stone-800 shadow-sm">
+                                        <i class="fa-solid fa-eye text-xs"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="p-4 sm:p-5 space-y-2">
+                                <span class="text-[10px] uppercase font-bold tracking-widest text-brand-muted">
+                                    ${product.colors.join(' • ')}
+                                </span>
+                                <h3 onclick="openProductDetailModal('${product.id}')" class="font-serif text-sm sm:text-base font-medium text-stone-900 line-clamp-1 cursor-pointer hover:text-stone-600 transition-colors">
+                                    ${product.title}
+                                </h3>
+                                <p class="text-xs sm:text-sm font-bold text-stone-900">
+                                    Rp ${product.price.toLocaleString('id-ID')}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="px-4 pb-4 sm:px-5 sm:pb-5 pt-0">
+                            <button onclick="openProductDetailModal('${product.id}')" ${isSoldOut ? 'disabled' : ''} class="w-full ${isSoldOut ? 'bg-stone-200 text-stone-400 cursor-not-allowed' : 'bg-stone-900 hover:bg-stone-800 text-white'} text-[11px] font-bold uppercase tracking-widest py-2.5 rounded-xl transition">
+                                ${isSoldOut ? 'STOK HABIS' : 'Lihat Detail & Beli'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /* ==========================================================================
+           PRODUCT DETAIL MODAL & ZOOM GALLERY
+           ========================================================================== */
+        function openProductDetailModal(productId) {
+            const product = productsState.find(p => p.id === productId);
+            if (!product) return;
+
+            currentDetailProduct = product;
+            selectedDetailQty = 1;
+            document.getElementById('modalQtyDisplay').innerText = "1";
+
+            document.getElementById('modalTitle').innerText = product.title;
+            document.getElementById('modalPrice').innerText = `Rp ${product.price.toLocaleString('id-ID')}`;
+            document.getElementById('modalDescription').innerText = product.description || "Tidak ada deskripsi.";
+
+            const mainImg = document.getElementById('modalMainImg');
+            const thumbsContainer = document.getElementById('modalGalleryThumbs');
+            
+            const images = (product.images && product.images.length > 0) ? product.images : ['https://placehold.co/600x800/FAF7F2/1C1917?text=PROPORTION'];
+            mainImg.src = images[0];
+
+            thumbsContainer.innerHTML = images.map((imgUrl) => `
+                <button onclick="switchModalGalleryImage('${imgUrl}')" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent hover:border-stone-800 focus:border-stone-800 flex-shrink-0 transition">
+                    <img src="${imgUrl}" class="w-full h-full object-cover">
+                </button>
+            `).join('');
+
+            selectedDetailColor = product.colors.length > 0 ? product.colors[0] : null;
+            renderModalColors();
+
+            selectedDetailSize = null;
+            renderModalSizes();
+
+            const totalStock = calculateTotalProductStock(product);
+            const badge = document.getElementById('modalStockStatusBadge');
+            if (totalStock <= 0) {
+                badge.className = "text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-rose-100 text-rose-800";
+                badge.innerText = "STOK HABIS";
+            } else {
+                badge.className = "text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800";
+                badge.innerText = `TERSEDIA (STOK: ${totalStock})`;
+            }
+
+            document.getElementById('productDetailModal').classList.remove('hidden');
+        }
+
+        function switchModalGalleryImage(imgUrl) {
+            document.getElementById('modalMainImg').src = imgUrl;
+        }
+
+        function closeProductDetailModal() {
+            document.getElementById('productDetailModal').classList.add('hidden');
+        }
+
+        function renderModalColors() {
+            const container = document.getElementById('modalColorList');
+            const label = document.getElementById('selectedColorLabel');
+            if (!container || !currentDetailProduct) return;
+
+            label.innerText = selectedDetailColor || "Pilih Warna";
+
+            container.innerHTML = currentDetailProduct.colors.map(color => {
+                const isSelected = color === selectedDetailColor;
+                return `
+                    <button onclick="selectModalColor('${color}')" class="px-3.5 py-1.5 rounded-lg border text-xs font-medium transition ${
+                        isSelected 
+                            ? 'border-stone-900 bg-stone-900 text-white shadow-xs' 
+                            : 'border-stone-300 bg-white text-stone-700 hover:border-stone-500'
+                    }">
+                        ${color}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectModalColor(color) {
+            selectedDetailColor = color;
+            renderModalColors();
+            selectedDetailSize = null;
+            renderModalSizes();
+        }
+
+        function renderModalSizes() {
+            const container = document.getElementById('modalSizeList');
+            const label = document.getElementById('selectedSizeLabel');
+            const stockDisplay = document.getElementById('modalVariantStockCount');
+            if (!container || !currentDetailProduct) return;
+
+            label.innerText = selectedDetailSize || "Pilih Ukuran";
+
+            container.innerHTML = currentDetailProduct.sizes.map(size => {
+                let stock = 0;
+                if (selectedDetailColor && currentDetailProduct.variants && currentDetailProduct.variants[selectedDetailColor]) {
+                    stock = Number(currentDetailProduct.variants[selectedDetailColor][size] || 0);
+                }
+
+                const isSelected = size === selectedDetailSize;
+                const isSoldOut = stock <= 0;
+
+                return `
+                    <button onclick="${isSoldOut ? '' : `selectModalSize('${size}')`}" ${isSoldOut ? 'disabled' : ''} class="px-3.5 py-1.5 rounded-lg border text-xs font-semibold transition ${
+                        isSoldOut 
+                            ? 'border-stone-200 bg-stone-100 text-stone-400 line-through cursor-not-allowed' 
+                            : isSelected 
+                                ? 'border-stone-900 bg-stone-900 text-white shadow-xs' 
+                                : 'border-stone-300 bg-white text-stone-800 hover:border-stone-500'
+                    }">
+                        ${size} ${isSoldOut ? '(SOLD OUT)' : ''}
+                    </button>
+                `;
+            }).join('');
+
+            if (selectedDetailColor && selectedDetailSize && currentDetailProduct.variants) {
+                const stock = Number(currentDetailProduct.variants[selectedDetailColor]?.[selectedDetailSize] || 0);
+                stockDisplay.innerText = stock > 0 ? `${stock} Pcs` : 'SOLD OUT';
+            } else {
+                stockDisplay.innerText = "-";
+            }
+        }
+
+        function selectModalSize(size) {
+            selectedDetailSize = size;
+            renderModalSizes();
+        }
+
+        function adjustModalQty(delta) {
+            let newQty = selectedDetailQty + delta;
+            if (newQty < 1) newQty = 1;
+            
+            if (selectedDetailColor && selectedDetailSize && currentDetailProduct.variants) {
+                const maxStock = Number(currentDetailProduct.variants[selectedDetailColor]?.[selectedDetailSize] || 0);
+                if (newQty > maxStock && maxStock > 0) {
+                    newQty = maxStock;
+                    showToast(`Jumlah melebihi stok tersedia (${maxStock} Pcs)`);
+                }
+            }
+
+            selectedDetailQty = newQty;
+            document.getElementById('modalQtyDisplay').innerText = selectedDetailQty;
+        }
+
+        /* ==========================================================================
+           BUY & CART ACTIONS
+           ========================================================================== */
+        function validateCustomerSelection() {
+            if (!currentDetailProduct) return false;
+
+            if (currentDetailProduct.colors.length > 0 && !selectedDetailColor) {
+                showToast("Silakan pilih WARNA terlebih dahulu.");
+                return false;
+            }
+            if (currentDetailProduct.sizes.length > 0 && !selectedDetailSize) {
+                showToast("Silakan pilih UKURAN terlebih dahulu.");
+                return false;
+            }
+
+            const stock = Number(currentDetailProduct.variants[selectedDetailColor]?.[selectedDetailSize] || 0);
+            if (stock <= 0) {
+                showToast("Varian yang dipilih saat ini SOLD OUT.");
+                return false;
+            }
+
+            return true;
+        }
+
+        function submitModalAddToCart() {
+            if (!validateCustomerSelection()) return;
+
+            const existingIndex = cartState.findIndex(item => 
+                item.id === currentDetailProduct.id &&
+                item.color === selectedDetailColor &&
+                item.size === selectedDetailSize
+            );
+
+            if (existingIndex > -1) {
+                cartState[existingIndex].qty += selectedDetailQty;
+            } else {
+                cartState.push({
+                    id: currentDetailProduct.id,
+                    title: currentDetailProduct.title,
+                    price: currentDetailProduct.price,
+                    image: (currentDetailProduct.images && currentDetailProduct.images[0]) || 'https://placehold.co/100',
+                    color: selectedDetailColor,
+                    size: selectedDetailSize,
+                    qty: selectedDetailQty
+                });
+            }
+
+            updateCartBadge();
+            renderCartItems();
+            closeProductDetailModal();
+            openCartDrawer();
+            showToast("Produk berhasil ditambahkan ke keranjang.");
+        }
+
+        function submitModalBuyWhatsApp() {
+            if (!validateCustomerSelection()) return;
+
+            const title = currentDetailProduct.title;
+            const color = selectedDetailColor || '-';
+            const size = selectedDetailSize || '-';
+            const qty = selectedDetailQty;
+
+            const text = `Halo Admin🙌 PROPORTION saya ingin menanyakan produk:
+
+Produk: ${title}
+Warna: ${color}
+Ukuran: ${size}
+Jumlah: ${qty}
+
+Apakah tersedia?`;
+
+            const encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, '_blank');
+        }
+
+        /* ==========================================================================
+           SHOPPING CART DRAWER LOGIC
+           ========================================================================== */
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            drawer.classList.toggle('hidden');
+            if (!drawer.classList.contains('hidden')) {
+                renderCartItems();
+            }
+        }
+
+        function openCartDrawer() {
+            document.getElementById('cartDrawer').classList.remove('hidden');
+            renderCartItems();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalQty = cartState.reduce((sum, item) => sum + item.qty, 0);
+            if (totalQty > 0) {
+                badge.innerText = totalQty;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function renderCartItems() {
+            const list = document.getElementById('cartItemsList');
+            const subtotalLabel = document.getElementById('cartSubtotal');
+            const totalLabel = document.getElementById('cartTotalDisplay');
+
+            if (cartState.length === 0) {
+                list.innerHTML = `
+                    <div class="py-12 text-center text-stone-400 space-y-2">
+                        <i class="fa-solid fa-basket-shopping text-3xl"></i>
+                        <p class="text-xs">Keranjang belanja Anda masih kosong.</p>
+                    </div>
+                `;
+                subtotalLabel.innerText = "Rp 0";
+                totalLabel.innerText = "Rp 0";
+                return;
+            }
+
+            let grandTotal = 0;
+
+            list.innerHTML = cartState.map((item, index) => {
+                const subtotal = item.price * item.qty;
+                grandTotal += subtotal;
+
+                return `
+                    <div class="pt-4 flex space-x-3 items-center justify-between">
+                        <img src="${item.image}" class="w-16 h-20 object-cover rounded-lg border border-stone-200">
+                        <div class="flex-1 space-y-1">
+                            <h4 class="text-xs font-bold text-stone-900 line-clamp-1">${item.title}</h4>
+                            <p class="text-[11px] text-stone-500">Warna: ${item.color} | Ukuran: ${item.size}</p>
+                            <p class="text-xs font-semibold text-stone-800">Rp ${item.price.toLocaleString('id-ID')}</p>
+                            
+                            <div class="inline-flex items-center border border-stone-200 rounded-md bg-stone-50 text-[10px]">
+                                <button onclick="updateCartQty(${index}, -1)" class="px-2 py-0.5 text-stone-600 hover:bg-stone-200">-</button>
+                                <span class="px-2 font-bold text-stone-800">${item.qty}</span>
+                                <button onclick="updateCartQty(${index}, 1)" class="px-2 py-0.5 text-stone-600 hover:bg-stone-200">+</button>
+                            </div>
+                        </div>
+
+                        <div class="text-right space-y-2">
+                            <p class="text-xs font-bold text-stone-900">Rp ${subtotal.toLocaleString('id-ID')}</p>
+                            <button onclick="removeCartItem(${index})" class="text-xs text-rose-500 hover:text-rose-700">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            subtotalLabel.innerText = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+            totalLabel.innerText = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+        }
+
+        function updateCartQty(index, delta) {
+            if (!cartState[index]) return;
+            cartState[index].qty += delta;
+            if (cartState[index].qty <= 0) {
+                cartState.splice(index, 1);
+            }
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        function removeCartItem(index) {
+            cartState.splice(index, 1);
+            updateCartBadge();
+            renderCartItems();
+            showToast("Item dihapus dari keranjang.");
+        }
+
+        function checkoutCartWhatsApp() {
+            if (cartState.length === 0) {
+                showToast("Keranjang Anda masih kosong.");
+                return;
+            }
+
+            let itemsText = "";
+            let grandTotal = 0;
+
+            cartState.forEach((item, idx) => {
+                const subtotal = item.price * item.qty;
+                grandTotal += subtotal;
+                itemsText += `${idx + 1}. ${item.title}\n   Warna: ${item.color} | Ukuran: ${item.size}\n   Qty: ${item.qty} x Rp ${item.price.toLocaleString('id-ID')} = Rp ${subtotal.toLocaleString('id-ID')}\n\n`;
+            });
+
+            const text = `Halo Admin🙌 PROPORTION, saya ingin memesan artikel berikut:
+
+${itemsText}----------------------------------
+TOTAL PEMBAYARAN: Rp ${grandTotal.toLocaleString('id-ID')}
+
+Mohon informasi ketersediaan stok & petunjuk pembayaran. Terima kasih!`;
+
+            const encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`, '_blank');
+        }
+
+        /* ==========================================================================
+           OWNER ACCESS & AUTHENTICATION
+           ========================================================================== */
+        function triggerSubtleOwnerModal() {
+            document.getElementById('loginUsername').value = "";
+            document.getElementById('loginPassword').value = "";
+            document.getElementById('loginErrorMessage').classList.add('hidden');
+            document.getElementById('ownerLoginModal').classList.remove('hidden');
+        }
+
+        function closeOwnerLoginModal() {
+            document.getElementById('ownerLoginModal').classList.add('hidden');
+        }
+
+        function handleOwnerLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('loginUsername').value.trim();
+            const p = document.getElementById('loginPassword').value.trim();
+
+            if (u === "PROPORTION" && p === "proportionfitmen") {
+                isOwnerLoggedIn = true;
+                closeOwnerLoginModal();
+                switchToOwnerDashboard();
+                showToast("Selamat datang di Owner Panel.");
+            } else {
+                document.getElementById('loginErrorMessage').classList.remove('hidden');
+            }
+        }
+
+        function switchToOwnerDashboard() {
+            document.getElementById('customerStoreView').classList.add('hidden');
+            document.getElementById('ownerDashboardView').classList.remove('hidden');
+            renderOwnerProductList();
+        }
+
+        function exitOwnerDashboard() {
+            document.getElementById('ownerDashboardView').classList.add('hidden');
+            document.getElementById('customerStoreView').classList.remove('hidden');
+            renderCatalog();
+        }
+
+        /* ==========================================================================
+           OWNER DASHBOARD PRODUCT MANAGEMENT
+           ========================================================================== */
+        function renderOwnerProductList() {
+            const list = document.getElementById('ownerProductList');
+            const count = document.getElementById('ownerProductCount');
+            if (!list) return;
+
+            count.innerText = productsState.length;
+
+            if (productsState.length === 0) {
+                list.innerHTML = `
+                    <div class="p-8 text-center text-stone-400">
+                        Belum ada produk. Klik "+ Tambah Produk Baru" untuk menambahkan artikel.
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = productsState.map(product => {
+                const totalStock = calculateTotalProductStock(product);
+                const thumb = (product.images && product.images[0]) || 'https://placehold.co/100';
+
+                return `
+                    <div class="p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-stone-50/80 transition">
+                        <div class="flex items-center space-x-4">
+                            <img src="${thumb}" class="w-16 h-20 object-cover rounded-xl border border-stone-200">
+                            <div class="space-y-1">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded ${
+                                        product.status === 'ACTIVE' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+                                    }">${product.status}</span>
+                                    <span class="text-xs font-bold text-stone-500">Stok Total: ${totalStock} Pcs</span>
+                                </div>
+                                <h3 class="font-bold text-stone-900 text-sm sm:text-base">${product.title}</h3>
+                                <p class="text-xs text-stone-500">Rp ${product.price.toLocaleString('id-ID')} | Warna: ${product.colors.join(', ')} | Ukuran: ${product.sizes.join(', ')}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-2 self-end sm:self-center">
+                            <button onclick="openEditProductModal('${product.id}')" class="bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold px-4 py-2 rounded-xl transition flex items-center space-x-1">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span>Edit Produk</span>
+                            </button>
+                            <button onclick="promptDeleteProduct('${product.id}')" class="bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-semibold px-3 py-2 rounded-xl transition" title="Hapus Produk">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /* ==========================================================================
+           OWNER PRODUCT EDIT / ADD FORM LOGIC
+           ========================================================================== */
+        function openAddProductModal() {
+            document.getElementById('ownerModalTitle').innerText = "Tambah Produk Baru";
+            document.getElementById('editProductId').value = "";
+            document.getElementById('formTitle').value = "";
+            document.getElementById('formPrice').value = "";
+            document.getElementById('formDescription').value = "";
+            document.getElementById('formStatus').value = "ACTIVE";
+
+            formImages = ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000&auto=format&fit=crop"];
+            formColors = ["Cream", "Black"];
+            formSizes = ["S", "M", "L", "XL", "XXL"];
+            
+            formVariants = {};
+            formColors.forEach(c => {
+                formVariants[c] = {};
+                formSizes.forEach(s => {
+                    formVariants[c][s] = 10;
+                });
+            });
+
+            isFormDirty = false;
+            renderFormImagePreviews();
+            renderFormColors();
+            renderFormSizes();
+            renderVariantMatrix();
+
+            document.getElementById('ownerProductModal').classList.remove('hidden');
+        }
+
+        function openEditProductModal(productId) {
+            const product = productsState.find(p => p.id === productId);
+            if (!product) return;
+
+            document.getElementById('ownerModalTitle').innerText = "Edit Produk";
+            document.getElementById('editProductId').value = product.id;
+            document.getElementById('formTitle').value = product.title;
+            document.getElementById('formPrice').value = product.price;
+            document.getElementById('formDescription').value = product.description || "";
+            document.getElementById('formStatus').value = product.status || "ACTIVE";
+
+            formImages = product.images ? [...product.images] : [];
+            formColors = product.colors ? [...product.colors] : [];
+            formSizes = product.sizes ? [...product.sizes] : [];
+            formVariants = product.variants ? JSON.parse(JSON.stringify(product.variants)) : {};
+
+            isFormDirty = false;
+            renderFormImagePreviews();
+            renderFormColors();
+            renderFormSizes();
+            renderVariantMatrix();
+
+            document.getElementById('ownerProductModal').classList.remove('hidden');
+        }
+
+        function attemptCloseOwnerProductModal() {
+            if (isFormDirty) {
+                document.getElementById('unsavedChangesModal').classList.remove('hidden');
+            } else {
+                forceCloseOwnerProductModal();
+            }
+        }
+
+        function forceCloseOwnerProductModal() {
+            document.getElementById('unsavedChangesModal').classList.add('hidden');
+            document.getElementById('ownerProductModal').classList.add('hidden');
+        }
+
+        function closeUnsavedChangesModal() {
+            document.getElementById('unsavedChangesModal').classList.add('hidden');
+        }
+
+        /* --- GALLERY IMAGE LOGIC --- */
+        function renderFormImagePreviews() {
+            const container = document.getElementById('formImagePreviews');
+            if (!container) return;
+
+            if (formImages.length === 0) {
+                container.innerHTML = `<span class="col-span-full text-xs text-stone-400 p-2 text-center">Belum ada foto. Upload atau tambah URL.</span>`;
+                return;
+            }
+
+            container.innerHTML = formImages.map((imgUrl, idx) => `
+                <div class="relative group aspect-square rounded-lg overflow-hidden border border-stone-300 bg-stone-100">
+                    <img src="${imgUrl}" class="w-full h-full object-cover">
+                    <button type="button" onclick="removeFormImage(${idx})" class="absolute top-1 right-1 bg-rose-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shadow opacity-80 group-hover:opacity-100 transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function handleImageFileUpload(e) {
+            const files = Array.from(e.target.files);
+            if (files.length === 0) return;
+
+            let loadedCount = 0;
+            files.forEach(file => {
+                compressImage(file, 800, 1000, 0.7, function(compressedUrl) {
+                    formImages.push(compressedUrl);
+                    loadedCount++;
+                    if (loadedCount === files.length) {
+                        isFormDirty = true;
+                        renderFormImagePreviews();
+                        showToast(`${files.length} foto berhasil diunggah.`);
+                    }
+                });
+            });
+            e.target.value = '';
+        }
+
+        function handleAddImageUrl() {
+            const input = document.getElementById('formImageUrlInput');
+            const url = input.value.trim();
+            if (url) {
+                formImages.push(url);
+                input.value = "";
+                isFormDirty = true;
+                renderFormImagePreviews();
+            }
+        }
+
+        function removeFormImage(idx) {
+            formImages.splice(idx, 1);
+            isFormDirty = true;
+            renderFormImagePreviews();
+        }
+
+        /* --- COLOR MANAGEMENT LOGIC --- */
+        function renderFormColors() {
+            const container = document.getElementById('formColorList');
+            if (!container) return;
+
+            container.innerHTML = formColors.map((color) => `
+                <span class="inline-flex items-center space-x-1.5 bg-stone-100 text-stone-800 text-xs font-semibold px-2.5 py-1 rounded-lg border border-stone-300">
+                    <span>${color}</span>
+                    <button type="button" onclick="removeColorFromForm('${color}')" class="text-stone-400 hover:text-rose-600"><i class="fa-solid fa-xmark text-[10px]"></i></button>
+                </span>
+            `).join('');
+        }
+
+        function addNewColorToForm() {
+            const input = document.getElementById('newColorInput');
+            const val = input.value.trim();
+            if (val && !formColors.includes(val)) {
+                formColors.push(val);
+                input.value = "";
+                isFormDirty = true;
+                renderFormColors();
+                renderVariantMatrix();
+            }
+        }
+
+        function removeColorFromForm(color) {
+            formColors = formColors.filter(c => c !== color);
+            delete formVariants[color];
+            isFormDirty = true;
+            renderFormColors();
+            renderVariantMatrix();
+        }
+
+        /* --- INDEPENDENT SIZE MANAGEMENT LOGIC --- */
+        function renderFormSizes() {
+            const container = document.getElementById('formSizeList');
+            if (!container) return;
+
+            container.innerHTML = formSizes.map((size) => `
+                <span class="inline-flex items-center space-x-1.5 bg-stone-900 text-white text-xs font-semibold px-2.5 py-1 rounded-lg shadow-xs">
+                    <span>${size}</span>
+                    <button type="button" onclick="promptDeleteSize('${size}')" class="text-stone-400 hover:text-rose-400"><i class="fa-solid fa-xmark text-[10px]"></i></button>
+                </span>
+            `).join('');
+        }
+
+        function addNewSizeToForm() {
+            const input = document.getElementById('newSizeInput');
+            const val = input.value.trim().toUpperCase();
+            if (val && !formSizes.includes(val)) {
+                formSizes.push(val);
+                input.value = "";
+                isFormDirty = true;
+                renderFormSizes();
+                renderVariantMatrix();
+            }
+        }
+
+        function promptDeleteSize(size) {
+            pendingSizeToDelete = size;
+            document.getElementById('sizeDeleteConfirmText').innerText = `Hapus ukuran ${size} dari produk ini?`;
+            
+            const confirmBtn = document.getElementById('confirmDeleteSizeBtn');
+            confirmBtn.onclick = function() {
+                executeSizeDeletion();
+            };
+
+            document.getElementById('sizeDeleteConfirmModal').classList.remove('hidden');
+        }
+
+        function closeSizeDeleteConfirmModal() {
+            document.getElementById('sizeDeleteConfirmModal').classList.add('hidden');
+            pendingSizeToDelete = null;
+        }
+
+        function executeSizeDeletion() {
+            if (!pendingSizeToDelete) return;
+
+            const targetSize = pendingSizeToDelete;
+            formSizes = formSizes.filter(s => s !== targetSize);
+
+            Object.keys(formVariants).forEach(color => {
+                if (formVariants[color][targetSize] !== undefined) {
+                    delete formVariants[color][targetSize];
+                }
+            });
+
+            isFormDirty = true;
+            closeSizeDeleteConfirmModal();
+            renderFormSizes();
+            renderVariantMatrix();
+            showToast(`Ukuran ${targetSize} telah dihapus dari produk.`);
+        }
+
+        /* --- VARIANT MATRIX TABLE RENDERER --- */
+        function renderVariantMatrix() {
+            const headRow = document.getElementById('variantMatrixHeaderRow');
+            const body = document.getElementById('variantMatrixBody');
+            const calc = document.getElementById('formTotalStockCalc');
+
+            if (!headRow || !body) return;
+
+            headRow.innerHTML = `<th class="p-2 bg-stone-100 text-stone-700 font-bold whitespace-nowrap">Warna \\ Ukuran</th>` + 
+                formSizes.map(size => `<th class="p-2 text-center border-l border-stone-200 font-bold bg-stone-100 text-stone-700 min-w-[70px]">${size}</th>`).join('');
+
+            if (formColors.length === 0 || formSizes.length === 0) {
+                body.innerHTML = `<tr><td colspan="${formSizes.length + 1}" class="p-4 text-center text-stone-400">Tambahkan minimal 1 Warna dan 1 Ukuran.</td></tr>`;
+                calc.innerText = "0";
+                return;
+            }
+
+            let grandTotalStock = 0;
+
+            body.innerHTML = formColors.map(color => {
+                if (!formVariants[color]) formVariants[color] = {};
+
+                const cols = formSizes.map(size => {
+                    const currentStock = formVariants[color][size] !== undefined ? formVariants[color][size] : 0;
+                    grandTotalStock += Number(currentStock);
+
+                    return `
+                        <td class="p-2 border-l border-stone-200 text-center">
+                            <input type="number" min="0" value="${currentStock}" onchange="updateVariantStockInput('${color}', '${size}', this.value)" class="w-16 px-2 py-1 border border-stone-300 rounded text-center text-xs font-bold focus:ring-1 focus:ring-stone-800 focus:outline-none">
+                        </td>
+                    `;
+                }).join('');
+
+                return `
+                    <tr>
+                        <td class="p-2 font-bold text-stone-800 bg-stone-50/50 whitespace-nowrap">${color}</td>
+                        ${cols}
+                    </tr>
+                `;
+            }).join('');
+
+            calc.innerText = grandTotalStock;
+        }
+
+        function updateVariantStockInput(color, size, val) {
+            if (!formVariants[color]) formVariants[color] = {};
+            formVariants[color][size] = Math.max(0, parseInt(val) || 0);
+            isFormDirty = true;
+            
+            let total = 0;
+            formColors.forEach(c => {
+                formSizes.forEach(s => {
+                    total += Number(formVariants[c]?.[s] || 0);
+                });
+            });
+            document.getElementById('formTotalStockCalc').innerText = total;
+        }
+
+        /* --- SAVE PRODUCT ACTION --- */
+        function handleProductFormSubmit(e) {
+            e.preventDefault();
+
+            const editId = document.getElementById('editProductId').value;
+            const title = document.getElementById('formTitle').value.trim();
+            const price = parseInt(document.getElementById('formPrice').value) || 0;
+            const description = document.getElementById('formDescription').value.trim();
+            const status = document.getElementById('formStatus').value;
+
+            if (!title) {
+                showToast("Silakan isi nama produk.");
+                document.getElementById('formTitle').focus();
+                return;
+            }
+
+            if (price <= 0) {
+                showToast("Silakan masukkan harga produk yang valid.");
+                document.getElementById('formPrice').focus();
+                return;
+            }
+
+            if (formImages.length === 0) {
+                showToast("Silakan tambahkan minimal 1 foto produk.");
+                return;
+            }
+
+            if (formColors.length === 0 || formSizes.length === 0) {
+                showToast("Silakan tambahkan minimal 1 Warna dan 1 Ukuran.");
+                return;
+            }
+
+            const cleanedVariants = {};
+            formColors.forEach(c => {
+                cleanedVariants[c] = {};
+                formSizes.forEach(s => {
+                    cleanedVariants[c][s] = formVariants[c]?.[s] !== undefined ? Number(formVariants[c][s]) : 0;
+                });
+            });
+
+            if (editId) {
+                const index = productsState.findIndex(p => p.id === editId);
+                if (index > -1) {
+                    productsState[index] = {
+                        ...productsState[index],
+                        title,
+                        price,
+                        description,
+                        status,
+                        images: [...formImages],
+                        colors: [...formColors],
+                        sizes: [...formSizes],
+                        variants: cleanedVariants
+                    };
+                }
+            } else {
+                const newProduct = {
+                    id: 'prop-' + Date.now(),
+                    title,
+                    price,
+                    description,
+                    status,
+                    images: [...formImages],
+                    colors: [...formColors],
+                    sizes: [...formSizes],
+                    variants: cleanedVariants
+                };
+                productsState.unshift(newProduct);
+            }
+
+            const isSaved = saveProductsToStorage();
+            isFormDirty = false;
+            forceCloseOwnerProductModal();
+            renderOwnerProductList();
+            renderCatalog();
+            
+            if (isSaved) {
+                showToast("Produk berhasil disimpan!");
+            }
+        }
+
+        function promptDeleteProduct(productId) {
+            const product = productsState.find(p => p.id === productId);
+            if (!product) return;
+
+            pendingProductToDelete = productId;
+            const confirmText = document.getElementById('productDeleteConfirmText');
+            if (confirmText) {
+                confirmText.innerText = `Apakah Anda yakin ingin menghapus produk "${product.title}" secara permanen?`;
+            }
+
+            const confirmBtn = document.getElementById('confirmDeleteProductBtn');
+            if (confirmBtn) {
+                confirmBtn.onclick = function() {
+                    executeProductDeletion();
+                };
+            }
+
+            document.getElementById('productDeleteConfirmModal').classList.remove('hidden');
+        }
+
+        function closeProductDeleteConfirmModal() {
+            document.getElementById('productDeleteConfirmModal').classList.add('hidden');
+            pendingProductToDelete = null;
+        }
+
+        function executeProductDeletion() {
+            if (!pendingProductToDelete) return;
+
+            productsState = productsState.filter(p => p.id !== pendingProductToDelete);
+            saveProductsToStorage();
+            closeProductDeleteConfirmModal();
+            renderOwnerProductList();
+            renderCatalog();
+            showToast("Produk telah berhasil dihapus.");
+        }
+
+        function deleteProductFromDashboard(productId) {
+            promptDeleteProduct(productId);
+        }
+
+        function saveAllProductsGlobal() {
+            saveProductsToStorage();
+            renderOwnerProductList();
+            renderCatalog();
+            showToast("Semua produk berhasil disimpan.");
+        }
+
+        /* ==========================================================================
+           UTILITY FUNCTIONS & INITIALIZATION
+           ========================================================================== */
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMessage');
+            if (!toast || !toastMsg) return;
+
+            toastMsg.innerText = msg;
+            toast.classList.remove('hidden', 'translate-y-4');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-4');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+            }, 3000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadLogoFromStorage();
+            renderBrandLogo();
+            loadProductsFromStorage();
+            renderCatalog();
+            
+            const yearEl = document.getElementById('currentYear');
+            if (yearEl) {
+                yearEl.innerText = new Date().getFullYear();
+            }
+        });
+    </script>
+</body>
+</html>
